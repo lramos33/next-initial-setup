@@ -19,6 +19,11 @@ const config: Config = {
         "8xl": "90rem",
       },
 
+      spacing: {
+        4.5: "1.125rem" /* 18px */,
+        18: "4.5rem" /* 72px */,
+      },
+
       screens: {
         xs: "460px",
         sm: "576px",
