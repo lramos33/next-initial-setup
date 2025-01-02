@@ -22,20 +22,14 @@
       }
     ],
 
-    // Enforce consistent naming for boolean props (should start with 'is', 'has', or 'should')
-    "react/boolean-prop-naming": ["error", { "rule": "^(is|has|should)[A-Z]([A-Za-z0-9]?)+" }],
-
     // Prevent usage of dangerous JSX props
     "react/no-danger": "error",
 
-    // Prevent multiple component definitions in a single file
+    // Prevent multiple component definitions in a single file, except in /src/components
     "react/no-multi-comp": ["error"],
 
     // Enforce consistent usage of destructuring assignment of props, state, and context
     "react/destructuring-assignment": ["error", "always"],
-
-    // Enforce that props are read-only
-    "react/prefer-read-only-props": "error",
 
     // Enforce consistent React fragment syntax
     "react/jsx-fragments": ["error", "syntax"],
@@ -76,7 +70,7 @@
       {
         "patterns": [
           {
-            "group": ["../*"],
+            "group": ["../*", "./*"],
             "message": "Usage of relative parent imports is not allowed. Use `@/` alias instead."
           }
         ]
@@ -86,10 +80,24 @@
     // Enforce a consistent order for Tailwind CSS classes
     "tailwindcss/classnames-order": "warn",
 
-    // Warn about custom class names that are not defined in the Tailwind config
-    "tailwindcss/no-custom-classname": "warn",
+    // Prevent using custom class names that are not defined in Tailwind CSS config
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "callees": ["cn", "clsx", "twMerge", "cva"],
+        "whitelist": ["^theme-", "^chart-"]
+      }
+    ],
 
     // Prevent using contradicting Tailwind CSS classes together
     "tailwindcss/no-contradicting-classname": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/components/**/*.{js,jsx,ts,tsx}"],
+      "rules": {
+        "react/no-multi-comp": "off"
+      }
+    }
+  ]
 }
