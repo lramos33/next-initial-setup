@@ -1,11 +1,12 @@
 import "@/styles/globals.css";
 
-import type { Viewport } from "next";
-import { ThemeProvider } from "@/contexts/theme-context";
-
-import { cn } from "@/utils/cn";
-
 import { inter, lexend, manrope } from "@/styles/fonts";
+
+import { cn } from "@/utils/helpers/cn.helper";
+
+import { getTheme } from "@/cookies/get";
+
+import type { Viewport } from "next";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -13,14 +14,12 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({ children }: { readonly children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode; dialog: React.ReactNode }) {
+  const theme = getTheme();
+
   return (
-    <html lang="en" className={cn(inter.variable, lexend.variable, manrope.variable, "bg-bg-primary text-t-primary")}>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="pt-BR" className={cn(inter.variable, lexend.variable, manrope.variable, "bg-bg-primary text-t-primary", theme)}>
+      <body>{children}</body>
     </html>
   );
 }
